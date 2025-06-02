@@ -11,9 +11,11 @@ Future<void> main() async {
 
   final prefs = await SharedPreferences.getInstance();
   final jsonUser = prefs.getString('user_data');
-  final userMap = jsonDecode(jsonUser!);
-  final user = UserModel.fromJson(userMap);
-  setUserdataAction(user);
+  if (jsonUser != null) {
+    final userMap = jsonDecode(jsonUser);
+    final user = UserModel.fromJson(userMap);
+    setUserdataAction(user);
+  }
 
   runApp(ModularApp(module: AppModule(), child: AppWidget()));
 }
