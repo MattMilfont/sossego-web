@@ -1,6 +1,7 @@
 import 'package:asp/asp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:sossego_web/modules/home/states/actions/get_reports_action.dart';
 import 'package:sossego_web/modules/home/states/atoms/home_atom.dart';
@@ -27,6 +28,9 @@ class _HomePageState extends State<HomePage> with HookStateMixin {
     final userInfo = useAtomState(userData);
 
     final state = useAtomState(homeState);
+
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
 
     // final List<String> items = List.generate(4, (index) => 'Item $index');
 
@@ -64,26 +68,51 @@ class _HomePageState extends State<HomePage> with HookStateMixin {
           );
         },
         success: (s) {
-          return ListView.builder(
-            padding: EdgeInsets.all(20),
-            itemCount: s.reports.length,
-            itemBuilder: (context, index) {
-              final report = s.reports[index];
-
-              // Converte a data de ISO para dd/MM/yyyy
-              final date = DateFormat(
-                'dd/MM/yyyy',
-              ).format(DateTime.parse(report.reportDate!));
-
-              return ReportCard(
-                reportDate: date,
-                reportTitle: report.reportsType!,
-                image: report.archive64!,
-                reportDescription:
-                    'Volume Sonoro acima do permitido por legislação',
-                reportAddress: '${report.address!}, ${report.number!}',
-              );
-            },
+          return Row(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.all(20),
+                  itemCount: s.reports.length,
+                  itemBuilder: (context, index) {
+                    final report = s.reports[index];
+                    final date = DateFormat(
+                      'dd/MM/yyyy',
+                    ).format(DateTime.parse(report.reportDate!));
+                    return SizedBox(
+                      width: 400,
+                      child: ReportCard(
+                        reportDate: date,
+                        reportTitle: report.reportsType!,
+                        image: report.archive64!,
+                        reportDescription:
+                            'Volume Sonoro acima do permitido por legislação',
+                        reportAddress: '${report.address!}, ${report.number!}',
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: SizedBox(
+                      width: 0.6 * width,
+                      height: 0.9 * height,
+                      child: GoogleMap(
+                        initialCameraPosition: CameraPosition(
+                          target: LatLng(-23.5505, -46.6333),
+                          zoom: 12,
+                        ),
+                        mapType: MapType.normal,
+                        onMapCreated: (GoogleMapController controller) {},
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           );
         },
 
