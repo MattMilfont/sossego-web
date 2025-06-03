@@ -1,5 +1,7 @@
 import 'dart:convert'; // para base64Decode
 import 'package:flutter/material.dart';
+import 'package:sossego_web/modules/home/models/report_model.dart';
+import 'package:sossego_web/modules/home/states/actions/select_report_action.dart';
 import 'package:sossego_web/utils/app_assets.dart';
 import 'package:sossego_web/utils/app_colors.dart';
 
@@ -8,13 +10,15 @@ class ReportCard extends StatelessWidget {
   final String reportTitle;
   final String reportDescription;
   final String reportAddress;
-  final String? image; // espera uma string Base64
+  final String? image;
+  final ReportModel report;
 
   const ReportCard({
     required this.reportDate,
     required this.reportTitle,
     required this.reportDescription,
     required this.reportAddress,
+    required this.report,
     this.image,
     super.key,
   });
@@ -25,7 +29,8 @@ class ReportCard extends StatelessWidget {
 
     if (image != null && image!.isNotEmpty) {
       try {
-        final base64String = image!.contains(',') ? image!.split(',').last : image!;
+        final base64String =
+            image!.contains(',') ? image!.split(',').last : image!;
         final imageBytes = base64Decode(base64String);
         imageWidget = Image.memory(imageBytes, fit: BoxFit.cover);
       } catch (e) {
@@ -36,70 +41,75 @@ class ReportCard extends StatelessWidget {
       imageWidget = Image.asset(AppAssets.logo, fit: BoxFit.cover);
     }
 
-    return Card(
-      color: AppColors.primaryColor,
-      margin: const EdgeInsets.only(bottom: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(10.0),
-                child: CircleAvatar(),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Denúncia do dia $reportDate',
-                    style: const TextStyle(
-                      color: AppColors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+    return InkWell(
+      onTap: () {
+        selectReport(report);
+      },
+      child: Card(
+        color: AppColors.primaryColor,
+        margin: const EdgeInsets.only(bottom: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: CircleAvatar(),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Denúncia do dia $reportDate',
+                      style: const TextStyle(
+                        color: AppColors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Text(
-                    reportAddress,
-                    style: const TextStyle(
-                      color: AppColors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
+                    Text(
+                      reportAddress,
+                      style: const TextStyle(
+                        color: AppColors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Container(
-            height: 200,
-            width: double.infinity,
-            color: AppColors.white,
-            child: imageWidget,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              reportTitle,
-              style: const TextStyle(
-                color: AppColors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+                  ],
+                ),
+              ],
+            ),
+            Container(
+              height: 200,
+              width: double.infinity,
+              color: AppColors.white,
+              child: imageWidget,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                reportTitle,
+                style: const TextStyle(
+                  color: AppColors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              reportDescription,
-              style: const TextStyle(
-                color: AppColors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                reportDescription,
+                style: const TextStyle(
+                  color: AppColors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

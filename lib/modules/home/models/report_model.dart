@@ -4,8 +4,8 @@ class ReportModel {
   String? reportsType;
   String? address;
   String? number;
-  String? latitude;
-  String? longitude;
+  double? latitude;
+  double? longitude;
   String? archive64;
   String? captedSound;
   String? reportStatus;
