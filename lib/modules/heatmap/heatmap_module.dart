@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:sossego_web/modules/heatmap/pages/heatmap_page.dart';
+import 'package:sossego_web/modules/heatmap/views/pages/heatmap_page.dart';
 
 class HeatmapModule extends Module {
   @override

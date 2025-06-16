@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sossego_web/modules/home/states/actions/get_reports_action.dart';
 import 'package:sossego_web/modules/home/states/atoms/home_atom.dart';
-import 'package:sossego_web/modules/heatmap/components/heatmap.dart';
-import 'package:sossego_web/modules/login/states/atoms/user_atom.dart';
+import 'package:sossego_web/modules/heatmap/views/components/heatmap.dart';
 import 'package:sossego_web/utils/app_colors.dart';
 
 class HeatmapPage extends StatefulWidget {
@@ -23,7 +22,6 @@ class _HeatmapPageState extends State<HeatmapPage> with HookStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final userInfo = useAtomState(userData);
     final state = useAtomState(homeState);
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
@@ -32,7 +30,7 @@ class _HeatmapPageState extends State<HeatmapPage> with HookStateMixin {
       appBar: AppBar(
         iconTheme: IconThemeData(color: AppColors.white),
         title: Text(
-          'Bem-vindo, ${userInfo!.user!.name}!',
+          'Mapa de Calor das Denúncias',
           style: TextStyle(
             color: AppColors.white,
             fontWeight: FontWeight.bold,
@@ -65,7 +63,7 @@ class _HeatmapPageState extends State<HeatmapPage> with HookStateMixin {
                     child: SizedBox(
                       width: 0.9 * width,
                       height: 0.8 * height,
-                      child: HeatMapWidget(),
+                      child: HeatMapWidget(reports: s.reports,),
                     ),
                   ),
                 ],
