@@ -9,6 +9,7 @@ import 'package:sossego_web/modules/home/states/atoms/home_atom.dart';
 import 'package:sossego_web/modules/home/states/atoms/map_atom.dart';
 import 'package:sossego_web/modules/home/views/components/report_card.dart';
 import 'package:sossego_web/modules/login/states/atoms/user_atom.dart';
+import 'package:sossego_web/utils/app_assets.dart';
 import 'package:sossego_web/utils/app_colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -76,6 +77,98 @@ class _HomePageState extends State<HomePage> with HookStateMixin {
     );
 
     return Scaffold(
+      drawer: NavigationDrawer(
+        backgroundColor: AppColors.white,
+        children: [
+          DrawerHeader(
+            decoration: BoxDecoration(color: AppColors.primaryColor),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 50,
+                  backgroundImage: AssetImage(AppAssets.logo),
+                ),
+              ],
+            ),
+          ),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: InkWell(
+                  child: Card(
+                    color: AppColors.primaryColor,
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Icon(Icons.home, color: AppColors.white),
+                        ),
+                        Text(
+                          'Menu',
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: InkWell(
+                  onTap: () => Modular.to.pushNamed('/heatmap'),
+                  child: Card(
+                    color: AppColors.primaryColor,
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Icon(Icons.map, color: AppColors.white),
+                        ),
+                        Text(
+                          'Mapa de Calor',
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: InkWell(
+                  onTap: () => Modular.to.pushNamed('/dashboard'),
+                  child: Card(
+                    color: AppColors.primaryColor,
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Icon(Icons.dashboard, color: AppColors.white),
+                        ),
+                        Text(
+                          'Dashboard',
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
       appBar: AppBar(
         iconTheme: const IconThemeData(color: AppColors.white),
         title: Text(

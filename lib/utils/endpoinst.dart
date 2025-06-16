@@ -4,5 +4,6 @@ class Endpoints {
   static const signUp = '$baseUrl/users';
   static const getReportsUser = '$baseUrl/reports/user';
   static const sendReport = '$baseUrl/reports';
+  static const getAllReports = '$baseUrl/reports';
   static const updateUserdata = '$baseUrl/users';
 }

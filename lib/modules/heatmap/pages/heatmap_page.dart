@@ -1,22 +1,20 @@
 import 'package:asp/asp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:intl/intl.dart';
 import 'package:sossego_web/modules/home/states/actions/get_reports_action.dart';
 import 'package:sossego_web/modules/home/states/atoms/home_atom.dart';
-import 'package:sossego_web/modules/home/views/components/heatmap.dart';
-import 'package:sossego_web/modules/home/views/components/report_card.dart';
+import 'package:sossego_web/modules/heatmap/components/heatmap.dart';
 import 'package:sossego_web/modules/login/states/atoms/user_atom.dart';
 import 'package:sossego_web/utils/app_colors.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HeatmapPage extends StatefulWidget {
+  const HeatmapPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HeatmapPage> createState() => _HeatmapPageState();
 }
 
-class _HomePageState extends State<HomePage> with HookStateMixin {
+class _HeatmapPageState extends State<HeatmapPage> with HookStateMixin {
   @override
   void initState() {
     getReportsUser();
@@ -47,10 +45,6 @@ class _HomePageState extends State<HomePage> with HookStateMixin {
             onPressed: () => Modular.to.pushNamed('/settings'),
             icon: Icon(Icons.settings, color: AppColors.white),
           ),
-          IconButton(
-            onPressed: () => Modular.to.pushNamed('/reports'),
-            icon: Icon(Icons.add, color: AppColors.white),
-          ),
         ],
       ),
       body: state.when(
@@ -60,33 +54,8 @@ class _HomePageState extends State<HomePage> with HookStateMixin {
             ),
         success: (s) {
           return Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
-                child: ListView.builder(
-                  padding: EdgeInsets.all(20),
-                  itemCount: s.reports.length,
-                  itemBuilder: (context, index) {
-                    final report = s.reports[index];
-                    final date = DateFormat(
-                      'dd/MM/yyyy',
-                    ).format(DateTime.parse(report.reportDate!));
-                    return SizedBox(
-                      width: 400,
-                      child: ReportCard(
-                        report: report,
-                        reportDate: date,
-                        reportTitle: report.reportsType!,
-                        image: report.archive64!,
-                        reportDescription:
-                            'Volume Sonoro acima do permitido por legislação',
-                        reportAddress: '${report.address!}, ${report.number!}',
-                      ),
-                    );
-                  },
-                ),
-              ),
-              SizedBox(width: 20), // espaçamento
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,7 +63,7 @@ class _HomePageState extends State<HomePage> with HookStateMixin {
                   Padding(
                     padding: const EdgeInsets.all(20),
                     child: SizedBox(
-                      width: 0.6 * width,
+                      width: 0.9 * width,
                       height: 0.8 * height,
                       child: HeatMapWidget(),
                     ),

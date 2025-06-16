@@ -17,7 +17,7 @@ class GetReportsUserService {
       print('URL da requisição: ${Endpoints.getReportsUser}');
 
       final response = await dio.get(
-        '${Endpoints.getReportsUser}/$id',
+        Endpoints.getAllReports,
         options: Options(
           headers: {'Authorization': 'Bearer ${userData.state?.token}'},
         ),
@@ -26,7 +26,7 @@ class GetReportsUserService {
       if (response.statusCode == 307) {
         final location = response.headers.value('location');
         if (location != null) {
-          final fullUrl = 'http://35.239.72.106:8080$location';
+          final fullUrl = '${Endpoints.baseUrl}$location';
           print('Redirecionado para: $fullUrl');
 
           final redirectedResponse = await dio.get(
