@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:sossego_web/modules/login/models/user_model.dart';
-import 'package:sossego_web/utils/endpoinst.dart';
+import 'package:sossego_web/utils/endpoints.dart';
 
 class SignInService {
   final dio = Dio(BaseOptions(

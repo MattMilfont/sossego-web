@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:asp/asp.dart';
 import 'package:sossego_web/modules/login/states/actions/chek_login_action.dart';
+import 'package:sossego_web/modules/login/states/actions/sendToRecover.dart';
 import 'package:sossego_web/modules/login/states/actions/send_form_action.dart';
 import 'package:sossego_web/modules/login/states/actions/send_sign_up.dart';
 import 'package:sossego_web/modules/login/states/atoms/login_atom.dart';
@@ -86,9 +87,7 @@ class _LoginPageState extends State<LoginPage> with HookStateMixin {
                         alignment: Alignment.centerLeft, // Alinha à esquerda
                         child: GestureDetector(
                           onTap: () {
-                            print(
-                              "Texto clicado!",
-                            ); // Substitua com a ação desejada
+                            sendToRecover();
                           },
                           child: Text(
                             'Esqueceu sua senha?',

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sossego_web/modules/home/models/report_model.dart';
 import 'package:sossego_web/modules/login/states/atoms/user_atom.dart';
-import 'package:sossego_web/utils/endpoinst.dart';
+import 'package:sossego_web/utils/endpoints.dart';
 
 class GetReportsUserService {
   final dio = Dio(
