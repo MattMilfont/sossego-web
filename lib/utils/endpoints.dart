@@ -7,4 +7,5 @@ class Endpoints {
   static const updateUserdata = '$baseUrl/users';
   static const getAllReports = '$baseUrl/reports';
   static const sendEmail = '$baseUrl/users/send-password';
+  static const finishReport = '$baseUrl/reports';
 }

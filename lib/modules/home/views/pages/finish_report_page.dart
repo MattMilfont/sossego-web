@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:asp/asp.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sossego_web/modules/home/states/actions/error_finish_report.dart';
+import 'package:sossego_web/modules/home/states/actions/finish_report.dart';
 import 'package:sossego_web/modules/home/states/atoms/finish_report_atom.dart';
 import 'package:sossego_web/utils/app_colors.dart';
 
@@ -26,7 +28,7 @@ class _FinishReportPageState extends State<FinishReportPage>
           color: AppColors.primaryColor,
           child: IconButton(
             onPressed: () {
-              Navigator.pop(context, true);
+              Modular.to.popAndPushNamed('/home');
             },
             icon: Icon(Icons.arrow_back),
             color: AppColors.white,
@@ -62,11 +64,15 @@ class _FinishReportPageState extends State<FinishReportPage>
                       ),
                       SizedBox(height: 20),
                       state.when(
-                        init: () {
+                        init: () => Column(),
+                        selected: (s) {
                           return ElevatedButton(
                             onPressed: () {
                               if (solutionController.text.isNotEmpty) {
-                                log(solutionController.text);
+                                finishReport(
+                                  s.selectedReport.reportId!,
+                                  solutionController.text,
+                                );
                               } else {
                                 errorFinishReport(
                                   'Você deve indicar a solução encontrada!',
