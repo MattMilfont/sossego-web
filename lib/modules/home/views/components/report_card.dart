@@ -1,4 +1,4 @@
-import 'dart:convert'; // para base64Decode
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sossego_web/modules/home/models/report_model.dart';
 import 'package:sossego_web/modules/home/states/actions/select_report_action.dart';
@@ -12,6 +12,7 @@ class ReportCard extends StatelessWidget {
   final String reportAddress;
   final String? image;
   final ReportModel report;
+  final VoidCallback? onFinish;
 
   const ReportCard({
     required this.reportDate,
@@ -20,6 +21,7 @@ class ReportCard extends StatelessWidget {
     required this.reportAddress,
     required this.report,
     this.image,
+    this.onFinish, 
     super.key,
   });
 
@@ -34,7 +36,6 @@ class ReportCard extends StatelessWidget {
         final imageBytes = base64Decode(base64String);
         imageWidget = Image.memory(imageBytes, fit: BoxFit.cover);
       } catch (e) {
-        // Caso ocorra erro na decodificação, usa imagem padrão
         imageWidget = Image.asset(AppAssets.logo, fit: BoxFit.cover);
       }
     } else {
@@ -105,6 +106,25 @@ class ReportCard extends StatelessWidget {
                   color: AppColors.white,
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10.0,
+                vertical: 10,
+              ),
+              child: Center(
+                child: ElevatedButton(
+                  onPressed: onFinish, // ✅ Executa a função recebida
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                  ),
+                  child: const Text(
+                    'Finalizar Denúncia',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             ),

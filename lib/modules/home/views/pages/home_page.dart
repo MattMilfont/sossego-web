@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:sossego_web/modules/home/states/actions/get_reports_action.dart';
+import 'package:sossego_web/modules/home/states/actions/send_to_finish_report.dart';
 import 'package:sossego_web/modules/home/states/atoms/home_atom.dart';
 import 'package:sossego_web/modules/home/states/atoms/map_atom.dart';
 import 'package:sossego_web/modules/home/views/components/report_card.dart';
@@ -216,6 +217,9 @@ class _HomePageState extends State<HomePage> with HookStateMixin {
                         reportDate: date,
                         reportTitle: report.reportsType!,
                         image: report.archive64!,
+                        onFinish: () {
+                          sendToFinishReport(report);
+                        },
                         reportDescription:
                             'Volume Sonoro acima do permitido por legislação',
                         reportAddress: '${report.address!}, ${report.number!}',
