@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:sossego_web/modules/dashboard/dashboard_modules.dart';
 import 'package:sossego_web/modules/heatmap/heatmap_module.dart';
 import 'package:sossego_web/modules/home/home_module.dart';
 import 'package:sossego_web/modules/login/login_module.dart';
@@ -15,6 +16,7 @@ class AppModule extends Module {
       ..module('/home', module: HomeModule())
       ..module('/recover', module: RecoverModule())
       ..module('/settings', module: SettingsModule())
+      ..module('/dashboard', module: DashboardModule())
       ..module('/heatmap', module: HeatmapModule())
       ..module('/', module: LoginModule());
   }
