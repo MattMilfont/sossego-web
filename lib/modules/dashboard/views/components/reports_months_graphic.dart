@@ -4,7 +4,12 @@ import 'package:sossego_web/modules/home/models/report_model.dart';
 
 class ReportsMonthsGraphic extends StatefulWidget {
   final List<ReportModel> reports;
-  const ReportsMonthsGraphic({required this.reports, super.key});
+  final Color columnColor;
+  const ReportsMonthsGraphic({
+    required this.reports,
+    required this.columnColor,
+    super.key,
+  });
 
   @override
   State<ReportsMonthsGraphic> createState() => _ReportsMonthsGraphicState();
@@ -14,7 +19,10 @@ class _ReportsMonthsGraphicState extends State<ReportsMonthsGraphic> {
   @override
   Widget build(BuildContext context) {
     Map<int, int> reportsPerMonth = getReportsPerMonth(widget.reports);
-    List<BarChartGroupData> barGroups = generateBarChartGroups(reportsPerMonth);
+    List<BarChartGroupData> barGroups = generateBarChartGroups(
+      reportsPerMonth,
+      widget.columnColor,
+    );
 
     return BarChart(
       BarChartData(
@@ -94,6 +102,7 @@ class _ReportsMonthsGraphicState extends State<ReportsMonthsGraphic> {
 
   List<BarChartGroupData> generateBarChartGroups(
     Map<int, int> reportsPerMonth,
+    Color columnColor,
   ) {
     List<BarChartGroupData> barGroups = [];
 
@@ -103,7 +112,7 @@ class _ReportsMonthsGraphicState extends State<ReportsMonthsGraphic> {
       barGroups.add(
         BarChartGroupData(
           x: i,
-          barRods: [BarChartRodData(toY: y, color: Colors.blue)],
+          barRods: [BarChartRodData(toY: y, color: columnColor)],
         ),
       );
     }
