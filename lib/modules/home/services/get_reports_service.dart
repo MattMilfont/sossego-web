@@ -14,10 +14,9 @@ class GetReportsUserService {
 
   Future<List<ReportModel>?> getReportsUser(int? id) async {
     try {
-      print('URL da requisição: ${Endpoints.getReportsUser}');
 
       final response = await dio.get(
-        Endpoints.getAllReports,
+        Endpoints.getAllActiveReports,
         options: Options(
           headers: {'Authorization': 'Bearer ${userData.state?.token}'},
         ),
@@ -27,10 +26,8 @@ class GetReportsUserService {
         final location = response.headers.value('location');
         if (location != null) {
           final fullUrl = '${Endpoints.baseUrl}$location';
-          print('Redirecionado para: $fullUrl');
-
           final redirectedResponse = await dio.get(
-            '$fullUrl/$id',
+            fullUrl,
             options: Options(
               headers: {'Authorization': 'Bearer ${userData.state?.token}'},
             ),

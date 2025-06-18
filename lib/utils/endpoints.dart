@@ -8,4 +8,6 @@ class Endpoints {
   static const getAllReports = '$baseUrl/reports';
   static const sendEmail = '$baseUrl/users/send-password';
   static const finishReport = '$baseUrl/reports';
+  static const getAllActiveReports = '$baseUrl/reports/active';
+  static const getAllSolvedReports = '$baseUrl/reports/solved';
 }

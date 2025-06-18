@@ -1,9 +1,9 @@
 import 'package:asp/asp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:sossego_web/modules/dashboard/states/actions/get_dashboard_data_action.dart';
+import 'package:sossego_web/modules/dashboard/states/atoms/dashboard_atom.dart';
 import 'package:sossego_web/modules/dashboard/views/components/reports_months_graphic.dart';
-import 'package:sossego_web/modules/home/states/actions/get_reports_action.dart';
-import 'package:sossego_web/modules/home/states/atoms/home_atom.dart';
 import 'package:sossego_web/utils/app_colors.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -16,13 +16,13 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> with HookStateMixin {
   @override
   void initState() {
-    getReportsUser();
+    getDashboardData();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = useAtomState(homeState);
+    final state = useAtomState(dashboardState);
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
@@ -65,7 +65,7 @@ class _DashboardPageState extends State<DashboardPage> with HookStateMixin {
                       child: SizedBox(
                         width: 0.4 * width,
                         height: 0.4 * height,
-                        child: ReportsMonthsGraphic(reports: s.reports),
+                        child: ReportsMonthsGraphic(reports: s.activeReports),
                       ),
                     ),
                     Padding(
@@ -73,7 +73,7 @@ class _DashboardPageState extends State<DashboardPage> with HookStateMixin {
                       child: SizedBox(
                         width: 0.4 * width,
                         height: 0.4 * height,
-                        child: ReportsMonthsGraphic(reports: s.reports),
+                        child: ReportsMonthsGraphic(reports: s.solvedReports),
                       ),
                     ),
                   ],
@@ -95,7 +95,7 @@ class _DashboardPageState extends State<DashboardPage> with HookStateMixin {
                       child: SizedBox(
                         width: 0.4 * width,
                         height: 0.4 * height,
-                        child: ReportsMonthsGraphic(reports: s.reports),
+                        child: ReportsMonthsGraphic(reports: s.solvedReports),
                       ),
                     ),
                   ],
