@@ -1,8 +1,8 @@
 import 'package:asp/asp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:sossego_web/modules/home/states/actions/get_reports_action.dart';
-import 'package:sossego_web/modules/home/states/atoms/home_atom.dart';
+import 'package:sossego_web/modules/heatmap/states/actions/get_reports_heatmap.dart';
+import 'package:sossego_web/modules/heatmap/states/atoms/heatmap_atom.dart';
 import 'package:sossego_web/modules/heatmap/views/components/heatmap.dart';
 import 'package:sossego_web/utils/app_colors.dart';
 
@@ -16,13 +16,13 @@ class HeatmapPage extends StatefulWidget {
 class _HeatmapPageState extends State<HeatmapPage> with HookStateMixin {
   @override
   void initState() {
-    getReportsUser();
+    getReportsHeatmap();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = useAtomState(homeState);
+    final state = useAtomState(heatmapState);
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
@@ -63,7 +63,7 @@ class _HeatmapPageState extends State<HeatmapPage> with HookStateMixin {
                     child: SizedBox(
                       width: 0.9 * width,
                       height: 0.8 * height,
-                      child: HeatMapWidget(reports: s.reports,),
+                      child: HeatMapWidget(reports: s.reports),
                     ),
                   ),
                 ],
